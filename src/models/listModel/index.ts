@@ -1,13 +1,10 @@
 import { Schema, model, Document } from "mongoose";
+import { IList } from "../../types";
 
-export interface List extends Document {
-  name: string;
-  // Define other list fields
-}
-
-const listSchema = new Schema<List>({
+const listSchema = new Schema<IList>({
   name: String,
-  // Define other list fields here
+  category: String,
+  isPurchased: Boolean
 });
 
-export default model<List>("List", listSchema);
+export default model<IList>("List", listSchema);

@@ -1,6 +1,13 @@
 import { Router } from "express";
-import * as listController from "../../controllers/listController";
+import ListController from "../../controllers/listController";
+import authorize from "../../middlewares/authMiddleware";
 
-const router = Router();
+const listRoutes = Router();
 
-// Define routes for list operations
+const listController = new ListController();
+
+listRoutes.post("/create", authorize, listController.createList);
+listRoutes.post("/share", authorize, listController.shareList);
+listRoutes.get("/sharedLists", authorize, listController.getSharedLists);
+
+export default listRoutes;

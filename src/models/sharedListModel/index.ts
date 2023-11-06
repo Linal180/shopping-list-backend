@@ -1,15 +1,11 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
+import { ISharedList } from "../../types";
 
-export interface SharedList extends Document {
-  listId: string;
-  sharedWith: string;
-  permission: "read" | "write";
-}
-
-const sharedListSchema = new Schema<SharedList>({
+const sharedListSchema = new Schema<ISharedList>({
+  userId: String,
   listId: String,
   sharedWith: String,
   permission: { type: String, enum: ["read", "write"] },
 });
 
-export default model<SharedList>("SharedList", sharedListSchema);
+export default model<ISharedList>("SharedList", sharedListSchema);
