@@ -1,20 +1,10 @@
-import * as mongoose from 'mongoose';
+import { Schema, model, Document } from "mongoose";
+import { IList } from "../../types";
 
-interface List {
-  name: string;
-  items: string[];
-  // Add other properties as needed
-}
-
-interface ListDocument extends mongoose.Document, List {}
-
-const listSchema = new mongoose.Schema<List>({
-  name: {
-    type: String,
-    required: true,
-  },
-  items: [String],
-  // Add other schema properties as needed
+const listSchema = new Schema<IList>({
+  name: String,
+  category: String,
+  isPurchased: Boolean
 });
 
-export const ListModel = mongoose.model<ListDocument>('List', listSchema);
+export default model<IList>("List", listSchema);
