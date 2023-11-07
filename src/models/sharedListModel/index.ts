@@ -1,30 +1,11 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
+import { ISharedList } from "../../types";
 
-interface SharedList {
-  listId: mongoose.Types.ObjectId;
-  sharedWith: string;
-  permission: 'read' | 'write';
-}
-
-interface SharedListDocument extends Document, SharedList {}
-
-const sharedListSchema = new Schema<SharedList>({
-  listId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'List', // Reference to the ListModel
-  },
-
-  sharedWith: {
-    type: String,
-    required: true,
-  },
-  
-  permission: {
-    type: String,
-    enum: ['read', 'write'],
-    required: true,
-  },
+const sharedListSchema = new Schema<ISharedList>({
+  userId: String,
+  listId: String,
+  sharedWith: String,
+  permission: { type: String, enum: ["read", "write"] },
 });
 
-export const SharedListModel = mongoose.model<SharedListDocument>('SharedList', sharedListSchema);
+export default model<ISharedList>("SharedList", sharedListSchema);
