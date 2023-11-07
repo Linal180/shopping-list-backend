@@ -1,13 +1,20 @@
-import { Schema, model, Document } from "mongoose";
+import * as mongoose from 'mongoose';
 
-export interface List extends Document {
+interface List {
   name: string;
-  // Define other list fields
+  items: string[];
+  // Add other properties as needed
 }
 
-const listSchema = new Schema<List>({
-  name: String,
-  // Define other list fields here
+interface ListDocument extends mongoose.Document, List {}
+
+const listSchema = new mongoose.Schema<List>({
+  name: {
+    type: String,
+    required: true,
+  },
+  items: [String],
+  // Add other schema properties as needed
 });
 
-export default model<List>("List", listSchema);
+export const ListModel = mongoose.model<ListDocument>('List', listSchema);
