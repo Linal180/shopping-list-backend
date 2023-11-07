@@ -9,6 +9,12 @@ const authService = new AuthService(User);
 const userService = new UserService(User);
 
 export default class UserController {
+  private userService: UserService; // Declare the userService property
+
+  constructor() {
+    this.userService = new UserService(User); // Initialize userService in the constructor
+  }
+  
   async signup(req: Request, res: Response) {
     try {
       const userExist = await userService.findUserByEmail(req.body.email);
